@@ -2,14 +2,18 @@ package com.bajuh.hireforwork;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.inventory.MerchantScreen;
 import net.minecraft.client.gui.widget.button.ImageButton;
+import net.minecraft.entity.NPCMerchant;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.container.MerchantContainer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 
-public class HireScreen extends Screen {
+public class HireScreen extends MerchantScreen {
 
     private static final int WIDTH = 276;
     private static final int HEIGHT = 166;
@@ -20,7 +24,8 @@ public class HireScreen extends Screen {
     private VillagerEntity villager;
 
     public HireScreen(PlayerEntity player, VillagerEntity villager) {
-        super(new StringTextComponent("Spawn something"));
+        ScreenManager.openScreen(packetIn.getContainerType(), this.client, packetIn.getWindowId(), packetIn.getTitle());
+        super(new MerchantContainer(player.currentWindowId, player.inventory, new NPCMerchant(player)));
 
         this.player = player;
         this.villager = villager;

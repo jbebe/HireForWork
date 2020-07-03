@@ -3,6 +3,7 @@ package com.bajuh.hireforwork;
 import net.minecraft.block.AirBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.multiplayer.PlayerController;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.Entity;
@@ -25,17 +26,19 @@ import java.util.UUID;
 public class ModLogic {
 
     public static void onPlayerInteractWithEntity(PlayerInteractEvent.EntityInteract event, Entity targetEntity){
-        // Only run on client
-        if (!targetEntity.world.isRemote)
+        // Only run on server
+        if (targetEntity.world.isRemote)
             return;
 
         if (targetEntity instanceof VillagerEntity){
             VillagerEntity villager = (VillagerEntity)targetEntity;
             VillagerData villagerData = villager.getVillagerData();
             VillagerProfession profession = villagerData.getProfession();
-            /*if (profession == VillagerProfession.NITWIT)*/{
+            if (true || profession == VillagerProfession.NITWIT){
+
                 PlayerEntity player = event.getPlayer();
                 villager.setCustomer(player);
+                // ScreenManager.openScreen(packetIn.getContainerType(), this.client, packetIn.getWindowId(), packetIn.getTitle());
                 HireScreen.open(player, villager);
                 event.setCanceled(true);
             }

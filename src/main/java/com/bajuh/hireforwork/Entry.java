@@ -17,5 +17,7 @@ public class Entry
 
     private static void init(final FMLCommonSetupEvent event){
         Networking.registerMessages();
+
+
     }
 }
